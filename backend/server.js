@@ -9,8 +9,6 @@ const userRoutes = require("./routes/userRoutes");
 const taskRoutes = require("./routes/taskRoutes");
 const reportRoutes = require("./routes/reportRoutes");
 
-// const taskRoutes = require("./routes/taskRoutes");
-// const reportRoutes = require("./routes/reportRoutes");
 
 const app = express();
 
