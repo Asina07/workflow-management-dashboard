@@ -27,12 +27,21 @@ axiosInstance.interceptors.request.use(
 //Response Interceptor
 //Handle responses and errors globally
 axiosInstance.interceptors.response.use(
-  (response) => response,
+  (response) => {
+    return response;
+  },
   (error) => {
-    if (error.response?.status === 401) {
-      localStorage.removeItem("token");
-      window.location.href = "/login";
-    }
+    // if (error.response) {
+    //   // Handle specific status codes
+    //   if (error.response.status === 401) {
+    //     // Unauthorized, possibly redirect to login
+    //     window.location.href = "/login";
+    //   } else if (error.response.status === 500) {
+    //     console.error("Server error. Please try again later.");
+    //   }
+    // } else if (error.code === "ECONNABORTED") {
+    //   console.error("Request timeout. Please try again.");
+    // }
     return Promise.reject(error);
   }
 );
