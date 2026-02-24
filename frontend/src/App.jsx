@@ -18,6 +18,7 @@ import CreateTask from "./pages/Admin/CreateTask";
 import ManageUsers from "./pages/Admin/ManageUsers";
 import UserProvider, { UserContext } from "./context/userContext";
 import { Toaster } from "react-hot-toast";
+import Root from "./pages/Root";
 
 
 
@@ -71,23 +72,4 @@ function App() {
 
 export default App;
 
-const Root = () => {
-  const { user, loading } = useContext(UserContext);
 
-  if (loading) {
-    return (
-      <div>
-        <Outlet />
-      </div>
-    );
-  }
-  if (!user) {
-    return <Navigate to="/login" />;
-  }
-
-  if (user.role === "admin") {
-    return <Navigate to="/admin/dashboard" />;
-  } else {
-    return <Navigate to="/user/dashboard" />;
-  }
-};

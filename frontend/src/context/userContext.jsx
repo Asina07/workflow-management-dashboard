@@ -8,51 +8,49 @@ export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Fetch user profile on component mount
+  // Hydrate user from localStorage first
   useEffect(() => {
-    if (user) {
-      return;
-    }
-    const accessToken = localStorage.getItem("token");
-    if (!accessToken) {
-      setLoading(true);
-      return;
-    }
-    const fetchUser = async () => {
-      try {
-        const response = await axiosInstance.get(API_PATHS.AUTH.GET_PROFILE);
-        setUser(response.data);
-      } catch (error) {
-        console.error(
-          "Failed to fetch user profile, User Not Authenticated:",
-          error,
-        );
-        clearUser();
-      } finally {
-        setLoading(false);
-      }
-    };
+    const storedUser = localStorage.getItem("user");
+    const token = localStorage.getItem("token");
 
-    fetchUser();
+    if (token && storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+
+    // If token exists, fetch latest profile
+    if (token) {
+      const fetchUser = async () => {
+        try {
+          const response = await axiosInstance.get(API_PATHS.AUTH.GET_PROFILE);
+          setUser(response.data);
+          localStorage.setItem("user", JSON.stringify(response.data));
+        } catch (error) {
+          console.error("Failed to fetch user profile:", error);
+          clearUser();
+        } finally {
+          setLoading(false);
+        }
+      };
+      fetchUser();
+    } else {
+      // No token → done loading
+      setLoading(false);
+    }
   }, []);
-
-  //   Check if token exists
-  // ↓
-  // If exists → get user profile from backend
-  // ↓
-  // Store user in global
 
   const updateUser = (userData) => {
     setUser(userData);
+    localStorage.setItem("user", JSON.stringify(userData));
     if (userData.token) {
-      localStorage.setItem("token", userData.token); // save token on login/signup
-    } //to save token on update
+      localStorage.setItem("token", userData.token);
+    }
     setLoading(false);
   };
 
   const clearUser = () => {
     setUser(null);
     localStorage.removeItem("token");
+    localStorage.removeItem("user");
   };
 
   return (
