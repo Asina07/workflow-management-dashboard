@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { API_PATHS } from "../../utils/apiPaths";
 import axiosInstance from "../../utils/axiosInstance";
 import DashboardLayout from "../../components/layouts/DashboardLayout";
@@ -10,6 +10,7 @@ import { LuSquareArrowOutUpRight } from "react-icons/lu";
 const ViewTaskDetails = () => {
   const { id } = useParams();
   const [task, setTask] = useState(null);
+  const navigate = useNavigate();
 
   const getStatusTagColor = (status) => {
     switch (status) {
@@ -152,7 +153,13 @@ const ViewTaskDetails = () => {
                     />
                   ))}
                 </div>
+                
               )}
+              <div className="mt-4 flex justify-center">
+                <button onClick={() => navigate('/user/tasks')} className="bg-blue-500  hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded">
+                  Submit
+                </button>
+              </div>
             </div>
           </div>
         )}
