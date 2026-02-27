@@ -96,10 +96,10 @@ const ViewTaskDetails = () => {
                 <InfoBox label="Description" value={task?.description} />
               </div>
               <div className="grid grid-cols-12 gap-4 mt-4">
-                <div className="cols-span-6 md:col-span-4">
+                <div className="col-span-6 md:col-span-4">
                   <InfoBox label="Priority" value={task?.priority} />
                 </div>
-                <div className="cols-span-6 md:col-span-4">
+                <div className="col-span-6 md:col-span-4">
                   <InfoBox
                     label="Due Date"
                     value={
@@ -109,20 +109,19 @@ const ViewTaskDetails = () => {
                     }
                   />
                 </div>
-                <div className="cols-span-6 md:col-span-4">
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Assigned To
-                  </label>
-                  <AvatarGroup
-                    maxVisible={4}
-                    avatars={
-                      task?.assignedTo?.map((user) => user.profileImageUrl) ||
-                      []
-                    }
-                  />
-                </div>
+                 <div className="col-span-6 md:col-span-4">
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Assigned To
+                </label>
+                <AvatarGroup
+                  maxVisible={4}
+                  avatars={
+                    task?.assignedTo?.map((user) => user.profileImageUrl) || []
+                  }
+                />
               </div>
-
+              </div>
+             
               <div className="mt-4">
                 <label className="block text-sm font-medium text-gray-500 mb-1">
                   Todo Checklist
@@ -153,10 +152,12 @@ const ViewTaskDetails = () => {
                     />
                   ))}
                 </div>
-                
               )}
               <div className="mt-4 flex justify-center">
-                <button onClick={() => navigate('/user/tasks')} className="bg-blue-500  hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded">
+                <button
+                  onClick={() => navigate("/user/tasks")}
+                  className="bg-blue-500  hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded"
+                >
                   Submit
                 </button>
               </div>
