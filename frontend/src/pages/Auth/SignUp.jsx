@@ -62,7 +62,7 @@ const SignUp = () => {
       if (token) {
         localStorage.setItem("token", token);
         updateUser(response.data);
-      toast.success("Account Created Successfully, Please Login to Continue");
+        toast.success("Account Created Successfully, Please Login to Continue");
 
         //navigate based on role
         // if (role === "admin") {
@@ -113,15 +113,17 @@ const SignUp = () => {
               type="password"
               label="Password"
             />
-
-            <Input
-              value={adminInviteToken}
-              onChange={({ target }) => setAdminInviteToken(target.value)}
-              placeholder="6 Digit Code"
-              type="text"
-              label="Admin Invite Token"
-            />
-            {error && <p className="text-red-500 text-sm ">{error}</p>}
+            <div className="flex flex-col ">
+              <Input
+                value={adminInviteToken}
+                onChange={({ target }) => setAdminInviteToken(target.value)}
+                placeholder="6 Digit Code"
+                type="text"
+                label="Admin Invite Token"
+              />
+              {error && <p className="text-red-500 text-sm ">{error}</p>}
+              <p className="text-gray-500 text-sm ">To login as Admin use Code : <span className="text-primary">11223344</span></p>{" "}
+            </div>
           </div>
           <button type="submit" className="btn-primary my-2">
             Sign Up
